@@ -1021,42 +1021,24 @@ const parseReportsData = (input: string): number[][] => {
 
 // util to check each report is safe or not
 const isReportSafe = (report: number[]): boolean => {
-  let reportIsSafe: boolean = false;
+  if (report.length < 2) {
+    return false;
+  }
 
-  for (let i = 0; i < report.length; ++i) {
-    if (report[i + 1] !== undefined && report[i] !== report[i + 1]) {
-      // should increase
-      if (report[0] < report[1]) {
-        if (report[i] >= report[i + 1]) {
-          reportIsSafe = false;
-          // maybe i can return instead?
-          // break;
-          return reportIsSafe;
-        }
-        // safe if report[i + 1] greater than report[i] + 1 but less than report[i] + 4
-        if ((report[i + 1] > report[i] + 1) && report[i + 1] < report[i] + 4) {
-          reportIsSafe = true;
-          return reportIsSafe;
-        }
-        // should decrease
-        else {
-          console.log('else buddy');
-          if (report[i] <= report[i + 1]) {
-            reportIsSafe = false;
-            // maybe i can return instead?
-            // break;
-            return reportIsSafe;
-          }
-          if (report[i + 1] < report[i] - 1 && report[i + 1] > report[i] - 4) {
-            reportIsSafe = true;
-            return reportIsSafe;
-          }
-        }
-      }
+  const isIncreasing = report[0] < report[1]
+
+  for (let i = 0; i < report.length - 1; ++i) {
+    const diff = report[i + 1] - report[i];
+
+    if ((isIncreasing && diff <= 0) || (!isIncreasing && diff >= 0)) {
+      return false;
+    }
+    if (Math.abs(diff) < 1 || Math.abs(diff) > 3) {
+      return false;
     }
   }
 
-  return reportIsSafe
+  return true;
 }
 
 const dummyData =
