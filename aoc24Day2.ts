@@ -1043,6 +1043,7 @@ const isReportSafe = (report: number[]): boolean => {
 
 const dummyData =
   // [7, 6, 4, 2, 1]
+  // hi markus
   [9, 7, 6, 2, 1]
 
 console.log('isReportSafe tho?', isReportSafe(dummyData));
