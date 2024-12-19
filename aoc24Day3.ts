@@ -56,3 +56,4 @@ const addProducts = (products: number[]): number => {
 
 console.log('test', addProducts(productsArray));
 // mux
+// halle berry
